@@ -1,12 +1,12 @@
-const Tweet = require('../database/models/tweet.model')
+const Tweet = require('../database/models/tweet.model');
 
 exports.getTweets = () => {
-    return Tweet.find({}).exec()
+    return Tweet.find({}).exec();
 }
 
 exports.createTweet = (tweet) => {
     const newTweet = new Tweet(tweet);
-    return newTweet.save()
+    return newTweet.save();
 }
 
 exports.deleteTweet = (tweetId) => {
@@ -14,9 +14,17 @@ exports.deleteTweet = (tweetId) => {
 }
 
 exports.getTweet = (tweetId) => {
-    return Tweet.findOne({_id: tweetId}).exec();
+    return Tweet.findOne({ _id: tweetId }).exec();
 }
 
-exports.updateTweet= (tweetId,tweet) => {
-    return Tweet.findByIdAndUpdate(tweetId,{$set: tweet}, {runValidators: true})
+exports.updateTweet = (tweetId, tweet) => {
+    return Tweet.findByIdAndUpdate(tweetId, { $set: tweet }, { runValidators: true });
+}
+
+exports.getCurrentUserTweetWithFollowing = (user) => {
+    return Tweet.find({ author: { $in: [...user.following, user._id] } }).exec();
+}
+
+exports.getUserTweetsFromUseerName = (authorId) => {
+    return Tweet.find({ author: authorId }).exec();
 }

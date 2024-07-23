@@ -34,3 +34,8 @@ exports.findUserPerId = (id) => {
 exports.findUserPerUsername = (username) => {
     return User.findOne({ username: username }).exec();
 }
+
+exports.addUserIdToCurrentUserFollowing = (currentUser,userId) => {
+    currentUser.following = [...currentUser.following, userId];
+    return currentUser.save();
+}

@@ -1,12 +1,12 @@
 const Tweet = require('../database/models/tweet.model')
-const { getCurrentUserTweetWithFollowing, getUserTweetsFromUserName, getTweets, createTweet, deleteTweet, getTweet, updateTweet } = require('../queries/tweets.queries')
+const { getCurrentUserTweetWithFollowing, createTweet, deleteTweet, getTweet, updateTweet } = require('../queries/tweets.queries')
 
 exports.tweetList = async (req, res, next) => {
     try {
         const tweets = await getCurrentUserTweetWithFollowing(req.user);
         res.render('tweets/tweet', { tweets, isAuthenticated: req.isAuthenticated(), currentUser: req.user, user: req.user, editable: true });
     } catch (e) {
-        next(e)
+        next(e);
     }
 }
 
@@ -24,15 +24,14 @@ exports.tweetCreate = async (req, res, next) => {
         const errors = Object.keys(e.errors).map(key => e.errors[key].message);
         res.status(400).render('tweets/tweet_form', { errors, isAuthenticated: req.isAuthenticated(), currentUser: req.user });
     }
-};
+}
 
 exports.tweetDelete = async (req, res, next) => {
     try {
         const tweetId = req.params.tweetId;
         await deleteTweet(tweetId);
         const tweets = await getCurrentUserTweetWithFollowing(req.user);
-        res.render('tweets/tweet_list', { tweets, currentUser:req.user, editable:true });
-
+        res.render('tweets/tweet_list', { tweets, currentUser: req.user, editable: true });
     } catch (e) {
         next(e);
     }

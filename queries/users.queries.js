@@ -1,4 +1,4 @@
-const User = require('../database/models/user.mondel')
+const User = require('../database/models/user.mondel');
 
 exports.createUser = async (user) => {
 
@@ -10,17 +10,21 @@ exports.createUser = async (user) => {
                 email: user.email,
                 password: hashPassword
             }
-        })
-        return newUser.save()
+        });
+        return newUser.save();
     } catch (e) {
         throw e;
     }
 }
 
 exports.findUserPerEmail = (email) => {
-    return User.findOne({'local.email':email}).exec()
+    return User.findOne({ 'local.email': email }).exec();
 }
 
 exports.findUserPerId = (id) => {
-    return User.findById(id).exec()
+    return User.findById(id).exec();
+}
+
+exports.findUserPerUsername = (username) => {
+    return User.findOne({ username: username }).exec();
 }

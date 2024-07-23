@@ -17,6 +17,12 @@ exports.createUser = async (user) => {
     }
 }
 
+exports.searchUsersPerUsername = (search) => {
+    const regExp = `^${search}`;
+    const reg = new RegExp(regExp);
+    return User.find({ username: { $regex: reg } }).exec();
+}
+
 exports.findUserPerEmail = (email) => {
     return User.findOne({ 'local.email': email }).exec();
 }

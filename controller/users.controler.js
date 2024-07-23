@@ -1,4 +1,4 @@
-const { createUser, findUserPerUsername } = require('../queries/users.queries');
+const { createUser, findUserPerUsername, searchUsersPerUsername } = require('../queries/users.queries');
 const { getUserTweetsFromAuthorId } = require('../queries/tweets.queries');
 const path = require('path');
 const multer = require('multer');
@@ -29,7 +29,17 @@ exports.userProfile = async (req, res, next) => {
         next(e);
     }
 }
-    ;
+
+exports.userList = async (req, res, next) => {
+    try {
+        const search = req.query.search;
+        const users = await searchUsersPerUsername(search);
+        res.render('includes/search_menu', { users });
+    } catch (e) {
+        next(e)
+    }
+}
+
 exports.signupForm = (req, res, next) => {
     res.render('users/user_form', {
         errors: null,

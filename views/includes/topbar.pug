@@ -8,11 +8,7 @@ navbar(class='navbar navbar-expand-lg navbar-light bg-white')
             if isAuthenticated
                 form
                     input(type="text" class='form-control me-2' placeholder='search' id='search-input')
-                    div(id='search-menu-container')
-                        div(class='search-menu d-flex flex-column')
-                            div(class='d-flex flex-row align-items-center search-menu-item pointer-cursor')
-                                img(width='30' height='30' class='p-2' src='/images/avatar.jpg')
-                                span username
+                    div(id='search-menu-container')           
                 ul(class='navbar-nav ms-auto')
                     li(class='nav-item active')
                         a(class='btn btn-primary btn-tweet me-3' href='/tweets/new') Tweet

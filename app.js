@@ -2,6 +2,7 @@
 const express = require("express");
 const morgan = require('morgan');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const index = require('./routes');
 const errorHandler = require('errorhandler');
 require('./database');
@@ -14,8 +15,10 @@ module.exports = app;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(cookieParser());
 require('./config/session.config');
 require('./config/passport.config');
+require('./config/jwt.config');
 
 
 //middleware form/json/public folder

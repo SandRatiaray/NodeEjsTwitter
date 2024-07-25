@@ -35,12 +35,12 @@ exports.findUserPerUsername = (username) => {
     return User.findOne({ username: username }).exec();
 }
 
-exports.addUserIdToCurrentUserFollowing = (currentUser,userId) => {
+exports.addUserIdToCurrentUserFollowing = (currentUser, userId) => {
     currentUser.following = [...currentUser.following, userId];
     return currentUser.save();
 }
 
-exports.removeUserIdToCurrentUserFollowing =(currentUser,userId) => {
-    currentUser.following = currentUser.following.filter(objId  => objId.toString() !== userId);
+exports.removeUserIdToCurrentUserFollowing = (currentUser, userId) => {
+    currentUser.following = currentUser.following.filter(objId => objId.toString() !== userId);
     return currentUser.save();
 }

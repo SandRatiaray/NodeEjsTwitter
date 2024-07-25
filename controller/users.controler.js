@@ -53,6 +53,7 @@ exports.signup = async (req, res, next) => {
     const body = req.body;
     try {
         const newUser = await createUser(body);
+
         res.redirect('/');
     } catch (e) {
         res.render('users/user_form', {
